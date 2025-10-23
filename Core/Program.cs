@@ -1,17 +1,16 @@
 using Cosmos.System;
 
-namespace ciao.Core
+namespace ciao.Core;
+
+public class Program : Kernel
 {
-    public class Program : Kernel
+
+    protected override void BeforeRun()
     {
+        Init initSystem = new Init(new(1, "init", "Init system"));
+    }
 
-        protected override void BeforeRun()
-        {
-            System.Console.WriteLine("Welcome to ciao!");
-        }
-
-        protected override void Run()
-        {
-        }
+    protected override void Run()
+    {
     }
 }
