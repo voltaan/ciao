@@ -7,7 +7,7 @@ public class Program : Kernel
 
     protected override void BeforeRun()
     {
-        Init initSystem = new Init(new(1, "init", "Init system"));
+        Init initSystem = new Init();
     }
 
     protected override void Run()

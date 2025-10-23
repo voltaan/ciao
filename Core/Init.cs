@@ -1,13 +1,13 @@
 using System;
+using ciao.Core.Angels;
 
 namespace ciao.Core;
 
 public class Init
 {
-    Angel angel;
     public AngelManager angelManager;
 
-    public Init(Angel angel)
+    public Init()
     {
         angelManager = new AngelManager();
         Console.WriteLine();
@@ -17,23 +17,47 @@ public class Init
         Console.ForegroundColor = ConsoleColor.White;
         Console.Write("!");
         Console.WriteLine();
-        Angel example = new Angel(2, "example", "test");
-    }
-    public void PreBoot()
-    {
+        FilesystemAngel filesystemAngel = new();
+        angelManager.RegisterAngel(filesystemAngel);
+        foreach (Angel angel in angelManager.angels)
+        {
+            if (angel.Start() == 0)
+            {
+                AngelStarted(angel);
+            }
+            else if (angel.Start() == 1)
+            {
+                AngelFailed(angel);
+            }
+        }
     }
 
-    static void UnitStarted(Angel angel)
+    static void AngelStarted(Angel angel)
     {
         Console.WriteLine();
         Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("[   ");
+        Console.Write("[  ");
         Console.ForegroundColor = ConsoleColor.Green;
         Console.Write("OK");
         Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("   ] ");
+        Console.Write("  ] ");
         Console.ForegroundColor = ConsoleColor.Gray;
         Console.Write("Started ");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Write(angel.name);
+        Console.ResetColor();
+    }
+    static void AngelFailed(Angel angel)
+    {
+        Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Write("[ ");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write("FAIL");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Write(" ] ");
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.Write("Failed to start ");
         Console.ForegroundColor = ConsoleColor.White;
         Console.Write(angel.name);
         Console.ResetColor();

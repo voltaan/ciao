@@ -1,14 +1,29 @@
+using System;
+
 namespace ciao.Core;
 
 public class Angel
 {
-    public int pid;
     public string name, desc;
+    Action action;
 
-    public Angel(int pid, string name, string desc = "")
+    public Angel(string name, string desc = "", Action action = null)
     {
-        this.pid = pid;
         this.name = name;
         this.desc = desc;
+        this.action = action;
+    }
+
+    public virtual int Start()
+    {
+        try
+        {
+            action();
+            return 0;
+        }
+        catch
+        {
+            return 1;
+        }
     }
 }
