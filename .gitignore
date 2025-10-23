@@ -417,4 +417,5 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
+# Raw filesystem (too big)
 Filesystem/Filesystem.img
