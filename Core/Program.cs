@@ -1,17 +1,17 @@
 using Cosmos.System;
-using ciao.Processing;
+using ciao.Core.Processing;
 
 namespace ciao.Core;
 
 public class Program : Kernel
 {
-    public static DemonManager demonManager;
     public static Logger systemLogger;
+    public static ProcessManager systemProcessManager;
 
     protected override void BeforeRun()
     {
         systemLogger = new();
-        Init initSystem = new Init(systemLogger);
+        systemProcessManager = new(systemLogger);
     }
 
     protected override void Run()

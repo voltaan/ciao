@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ciao.Core.Processing;
 
 namespace ciao.Core;
 
@@ -13,16 +14,17 @@ public class Logger
         warningList = new();
         infoList = new();
     }
-    public void LogError(string error)
+    public void LogError(string error, Process relatedProcess)
     {
-        errorList.Add("Error: " + error);
+        errorList.Add("Error in process " + relatedProcess.pid + " (" + relatedProcess.name + "): " + error);
     }
-    public void LogWarning(string warning)
+    public void LogWarning(string warning, Process relatedProcess)
     {
-        warningList.Add("Warning: " + warning);
+        warningList.Add("Warning in process " + relatedProcess.pid + " (" + relatedProcess.name + "): " + warning);
     }
-    public void LogInfo(string info)
+    public void LogInfo(string info, Process relatedProcess)
     {
-        infoList.Add("Information: " + info);
+        infoList.Add("Information in process " + relatedProcess.pid + " (" + relatedProcess.name + "): " + info);
+
     }
 }
