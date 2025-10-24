@@ -12,9 +12,11 @@ public class Program : Kernel
     {
         systemLogger = new();
         systemProcessManager = new(systemLogger);
+        systemProcessManager.RegisterProcess(new Tty());
     }
 
     protected override void Run()
     {
+        systemProcessManager.Execute();
     }
 }

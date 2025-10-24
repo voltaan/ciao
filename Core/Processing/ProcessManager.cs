@@ -5,7 +5,7 @@ namespace ciao.Core.Processing;
 public class ProcessManager
 {
     Logger logger;
-    List<Process> processes;
+    public List<Process> processes;
     int nextProcessId;
 
     public ProcessManager(Logger logger)
@@ -14,7 +14,7 @@ public class ProcessManager
         processes = new();
         nextProcessId = 0;
     }
-    public void StartProcess(Process process)
+    public void RegisterProcess(Process process)
     {
         process.pid = nextProcessId++;
         processes.Add(process);

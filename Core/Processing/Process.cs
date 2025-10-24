@@ -22,7 +22,7 @@ public class Process
         }
         catch (Exception e)
         {
-            return "Exception while running process " + pid + " (" + name + "): " + e.Message;
+            return e.Message;
         }
     }
 }
