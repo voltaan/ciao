@@ -1,13 +1,16 @@
 using System;
 using ciao.Core.Angels;
+using ciao.Processing;
 
 namespace ciao.Core;
 
-public class Init
+public class Init : Demon
 {
     public AngelManager angelManager;
+    Demon initDemon;
+    Logger initLogger;
 
-    public Init()
+    public Init(Logger logger) : base("init", "Initialization system")
     {
         angelManager = new AngelManager();
         Console.WriteLine();
@@ -17,19 +20,22 @@ public class Init
         Console.ForegroundColor = ConsoleColor.White;
         Console.Write("!");
         Console.WriteLine();
-        FilesystemAngel filesystemAngel = new();
-        angelManager.RegisterAngel(filesystemAngel);
+        //angelManager.RegisterAngel(new FilesystemAngel());
         foreach (Angel angel in angelManager.angels)
         {
-            if (angel.Start() == 0)
+            int exitCode = angel.Start();
+            if (exitCode == 0)
             {
                 AngelStarted(angel);
+                initLogger.LogInfo(angel.name + " angel started.");
             }
-            else if (angel.Start() == 1)
+            else if (exitCode == 1)
             {
                 AngelFailed(angel);
+                initLogger.LogError(angel.name + " failed to start.");
             }
         }
+
     }
 
     static void AngelStarted(Angel angel)
